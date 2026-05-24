@@ -1,0 +1,41 @@
+# Ortam ve Derleme Dosyaları
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+# Veri Dosyaları (Büyük veri kümelerini GitHub'a yüklememek iyi bir pratiktir)
+data/raw/
+data/processed/
+data/model_ready/
+*.csv
+*.xlsx
+*.db
+*.sqlite
+
+# Modeller ve Çıktılar
+models/
+*.pkl
+*.model
+*.h5
+*.joblib
+*.joblib.dat
+
+# Çıktı Dosyaları
+*.html
+figures/
+
+# IDE Dosyaları
+.vscode/
+.idea/
+.DS_Store
+
+# Log ve Diğer Dosyalar
+*.log
+*.pot
+*.bak

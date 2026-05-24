@@ -1,0 +1,5 @@
+Streamlit App URL: https://witty-dryers-drive.loca.lt
+
+Not: Localtunnel güvenlik amacıyla sizden bir "Endpoint IP" (tünel şifresi) isteyebilir.
+Şifrenizi (IP adresinizi) öğrenmek için şu adresi ziyaret edebilirsiniz: https://loca.lt/mytunnelpassword
+Bu bağlantıdan aldığınız IP adresini, uygulamanın linkine ilk tıkladığınızda açılan sayfadaki kutucuğa yapıştırarak uygulamaya erişebilirsiniz.
