@@ -1,41 +1,9 @@
-# Ortam ve Derleme Dosyaları
+# Sadece GitHub'ın yüklemeye İZİN VERMEDİĞİ (100 MB üzeri) devasa dosyaları yoksayar:
+dataset-analysis/data/model_ready/X_train.csv
+dataset-analysis/data/model_ready/X_train_c*
+dataset-analysis/models/best_model*
+dataset-analysis/models/final_model*
 .venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-ENV/
-
-# Veri Dosyaları (Büyük veri kümelerini GitHub'a yüklememek iyi bir pratiktir)
-data/raw/
-data/processed/
-data/model_ready/
-*.csv
-*.xlsx
-*.db
-*.sqlite
-
-# Modeller ve Çıktılar
-models/
+llvmlite.dll
 *.pkl
-*.model
-*.h5
-*.joblib
-*.joblib.dat
-
-# Çıktı Dosyaları
-*.html
-figures/
-
-# IDE Dosyaları
-.vscode/
-.idea/
-.DS_Store
-
-# Log ve Diğer Dosyalar
-*.log
-*.pot
-*.bak
+*.csv
