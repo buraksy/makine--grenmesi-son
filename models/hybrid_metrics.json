@@ -1,0 +1,20 @@
+{
+  "audio_only": {
+    "accuracy": 0.5728947368421052,
+    "f1_weighted": 0.6004643332028315,
+    "roc_auc": 0.6227156606986881
+  },
+  "hybrid_interactive": {
+    "accuracy": 0.7744736842105263,
+    "f1_weighted": 0.7612173084525327,
+    "roc_auc": 0.7928671184615802
+  },
+  "random_forest_full": {
+    "accuracy": 0.8535087719298246,
+    "f1_weighted": 0.842965378993336,
+    "roc_auc": 0.9015939178422628
+  },
+  "audio_blend_weight": 0.48,
+  "global_prior": 0.25846491228070173,
+  "model_type": "logistic_regression_audio + genre_prior"
+}

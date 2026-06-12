@@ -2,6 +2,10 @@
 
 Quick-start code templates for immediate implementation.
 
+> **Haziran 2026 güncellemesi:** Ana model **Random Forest Classifier** (ikili sınıf: Düşük 0–49 / Yüksek 50–100).  
+> Model dosyası: `models/best_classifier_rf.pkl` · Pipeline: `notebooks/Spotify_ML_Pipeline_Reorganized_v2.ipynb`  
+> Aşağıdaki SHAP/explainer örnekleri regresyon içindir — sınıflandırma için `TreeExplainer` veya `permutation_importance` kullanın.
+
 ---
 
 ## 📦 STEP 1: Install Additional Dependencies

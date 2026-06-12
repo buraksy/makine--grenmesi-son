@@ -1,49 +1,84 @@
-# Önerilen Modelleme Stratejisi
+# Önerilen Modelleme Stratejisi (Sınıflandırma)
 
+**Güncelleme:** Haziran 2026  
+**Kaynak:** `notebooks/Spotify_ML_Pipeline_Reorganized_v2.ipynb`
 
-1. HEDEF: Şarkı Popülaritesi Tahmini (Regression - 0-100 arası popularity skoru)
+---
 
-2. ⚠️ KRİTİK UYARI: Audio Features ile Popularity Arasında Çok Zayıf İlişki!
-   - En yüksek korelasyon: loudness (0.05) - bu çok düşük
-   - Mevcut feature'larla R² < 0.10 beklenmeli
-   - Model başarısı için external features (sanatçı, playlist, yayın tarihi) KRİTİK
+## 1. HEDEF
 
-3. ÖNERİLEN MODELLER:
-   a) Baseline: Linear Regression (R² baseline oluştur)
-   b) Regularized: Ridge, Lasso, ElasticNet (düşük korelasyonlar için)
-   c) Tree-based: Random Forest Regressor, XGBoost Regressor, LightGBM
-   d) Neural Network: MLP Regressor (polynomial relationships test için)
-   e) Ensemble: Stacking/Blending (çok küçük iyileştirme sağlayabilir)
+**İkili sınıflandırma:** Şarkının popülerliği Düşük mü, Yüksek mi?
 
-4. ÖNCELİKLİ VERİ HAZIRLIĞI:
-   - ⚠️ KRİTİK: track_genre ONE-HOT veya TARGET ENCODING (EN GÜÇLÜ FEATURE!)
-   - ID sütunlarını çıkar (track_id, artists, album_name, track_name)
-   - explicit: Binary encoding (0/1)
-   - Sayısal değişkenler: StandardScaler (linear models için) veya RobustScaler
-   - Train-test split: Random 80-20
-   - ⚠️ Harici feature eklenmesi şiddetle önerilir (artist followers, playlist count, release date)
+| Popularity | Sınıf | Etiket |
+|------------|-------|--------|
+| 0 – 49 | 0 | Düşük Popüler |
+| 50 – 100 | 1 | Yüksek Popüler |
 
-5. DEĞERLENDİRME METRİKLERİ:
-   - R² (Coefficient of Determination) - Model başarısı
-   - RMSE (Root Mean Squared Error) - Ortalama hata
-   - MAE (Mean Absolute Error) - Mutlak hata
-   - MAPE (Mean Absolute Percentage Error) - Yüzdelik hata
-   - Residual Plot (hata dağılımı kontrol)
-   - ⚠️ Beklenen R²: 0.05-0.15 (çok düşük - audio features yetersiz)
+---
 
-6. FEATURE ENGINEERING FıRSATLARı (Öncelik Sırasıyla):
-   a) ⚠️ KRİTİK: track_genre encoding (EN GÜÇLÜ FEATURE - mutlaka ekle)
-   b) ⚠️ YÜKSEK: External features (artist takipçi sayısı, playlist sayısı, yayın tarihi)
-   c) Düşük: Audio polynomials (loudness², danceability²) - zaten zayıf
-   d) Düşük: Mood score (valence x energy) - popularity ile ilişki yok
-   e) Düşük: Feature interactions - lineer ilişki zaten yok
+## 2. KRİTİK UYARILAR
 
-7. CROSS-VALİDATİON:
-   - K-Fold (k=5 veya k=10) - Stratified gerekmez
-   - Regression için random fold assignment yeterli
+- Audio features ile popularity arasında zayıf ilişki (korelasyon < 0.1) — EDA bulgusu geçerli  
+- **track_genre** en güçlü özellik — one-hot encoding zorunlu  
+- Sınıf dengesizliği: ~%74 Düşük / ~%26 Yüksek → `class_weight='balanced'` kullan  
+- Ham `y_train.csv` popularity skorları içerir; binarize notebook'ta yapılır  
 
-8. ⚠️ BEKLENTİ YÖNETİMİ:
-   - Mevcut audio features ile yüksek accuracy BEKLENMEMELİ
-   - Model başarısı düşük olabilir (R² < 0.15)
-   - Popülerlik, müzikal özelliklerden çok pazarlama/platform faktörlerine bağlı
-   - İyileştirme için artist_name, playlist_count, release_date gibi harici data gerekli
+---
+
+## 3. ÖNERİLEN MODELLER
+
+| Kategori | Modeller |
+|----------|----------|
+| Linear | Logistic Regression, Ridge Classifier, SGD Classifier, Linear SVC, LDA |
+| Tree | Decision Tree, Random Forest, Extra Trees, Gradient Boosting, AdaBoost |
+| Boosting | XGBoost, LightGBM |
+| Diğer | KNN, Naive Bayes |
+
+**Şampiyon model:** Random Forest Classifier (GridSearchCV + `class_weight='balanced'`)
+
+---
+
+## 4. VERİ HAZIRLIĞI
+
+- ✅ `X_train_clean.csv` / `X_test_clean.csv` — 131 özellik, leakage temiz  
+- ✅ RobustScaler uygulanmış  
+- ✅ Genre one-hot (114 sütun)  
+- ⚠️ Train-test split regresyon döneminden kaldı; CV için **StratifiedKFold** kullan  
+- İleride: stratified yeniden split önerilir  
+
+---
+
+## 5. DEĞERLENDİRME METRİKLERİ
+
+| Metrik | Açıklama |
+|--------|----------|
+| **Accuracy** | Genel doğruluk |
+| **F1-Score (weighted)** | Dengesiz sınıflar için ana metrik |
+| **F1-Score (macro)** | Sınıf başına eşit ağırlık |
+| **Precision / Recall** | Sınıf bazlı (özellikle Yüksek sınıf recall) |
+| **ROC-AUC** | Ayırt etme gücü |
+| **Confusion Matrix** | FP / FN analizi |
+
+**Gerçekleşen test metrikleri (Random Forest):** Accuracy 0.853 · F1 weighted 0.842 · ROC-AUC 0.902
+
+---
+
+## 6. CROSS-VALIDATION
+
+- **StratifiedKFold** (k=5) — sınıf oranını korur  
+- Scoring: `f1_weighted`, `accuracy`  
+- Hiperparametre: GridSearchCV, 3-fold StratifiedKFold  
+
+---
+
+## 7. BEKLENTİ YÖNETİMİ
+
+- Yüksek popüler sınıf recall'u (~0.54) düşük kalabilir — azınlık sınıf  
+- Genre ve audio features ile %85 accuracy elde edildi; regresyon R² beklentileri artık geçerli değil  
+- İyileştirme: external features, threshold tuning, SMOTE  
+
+---
+
+## 8. ARŞİV
+
+Eski regresyon stratejisi (R², RMSE, Bagging Regressor) → `scripts/ARCHIVED_REGRESSION_PIPELINE.md`

@@ -7,6 +7,15 @@ argument-hint: "EDA Expert çıktıları, veri seti dosya yolu veya preprocessin
 user-invocable: true
 ---
 
+## PROJE BAĞLAMI (Haziran 2026 — güncel)
+
+- **Ham hedef:** `popularity` (0–100) — `y_train.csv` / `y_test.csv`
+- **Modelleme hedefi:** Binarize → 0–49 Düşük, 50–100 Yüksek (notebook'ta yapılır)
+- **Özellik seti:** `X_train_clean.csv` — 131 sütun, leakage temiz, RobustScaler uygulanmış
+- **Referans:** `DATAPREP_MODEL_EXPERT_HANDOFF.md`, `README.md`
+
+---
+
 # DataPrep Expert - Agentik, Etkileşimli ve Pipeline Tabanlı Veri Hazırlama Uzmanı
 
 Sen ileri düzey bir **Veri Hazırlama, Feature Engineering ve Model Readiness Uzmanı** olarak çalışıyorsun.

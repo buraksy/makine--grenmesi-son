@@ -1,9 +1,12 @@
 # 🎵 Spotify Müzik Veri Seti - Keşifsel Veri Analizi Final Raporu
 
-**Analiz Tarihi:** 18 Mayıs 2026  
+**Analiz Tarihi:** 18 Mayıs 2026 · **Güncelleme:** Haziran 2026  
 **Veri Seti:** dataset.csv (Spotify Music Dataset)  
 **Analiz Yöntemi:** 7 Aşamalı Agentik EDA Pipeline  
-**Hedef:** Şarkı Popülaritesi Tahmini (Regression) için Veri Anlayışı ve Model Hazırlığı
+**EDA Hedefi:** `popularity` (0–100) sürekli değişken analizi  
+**Modelleme Hedefi (güncel):** İkili sınıflandırma — 0–49 Düşük, 50–100 Yüksek  
+
+> Bu rapordaki popularity analizleri (dağılım, korelasyon, genre) geçerlidir. Final model **sınıflandırma**dır; notebook'ta `popularity_class` oluşturulur. Güncel metrikler: `README.md` ve `MODEL_EXPERT_FINAL_HANDOFF.md`.
 
 ---
 
@@ -11,9 +14,10 @@
 
 ### Veri Seti Profili
 - **Boyut:** 114,000 şarkı × 21 değişken (2.4 milyon veri hücresi)
-- **Kapsam:** 114 farklı müzik türü, 9 audio feature, popularity (hedef değişken: 0-100 aralsı)
+- **Kapsam:** 114 farklı müzik türü, 9 audio feature, popularity (ham hedef: 0-100)
+- **Sınıflandırma hedefi:** popularity < 50 → Düşük (0), ≥ 50 → Yüksek (1) — ~%74 / ~%26 dağılım
 - **Kalite:** Yüksek - Eksik veri %0.0, duplicate satır yok
-- **Potansiyel:** Şarkı popülaritesi tahmini için veri seti, ancak audio features ile zayıf ilişki
+- **Potansiyel:** Popülerlik modellemesi için uygun veri seti; audio features ile zayıf ilişki
 
 ### Kritik Fırsatlar
 1. **Büyük ve Temiz Veri Seti:** 114,000 kayıt, minimal veri kalitesi sorunu
@@ -22,12 +26,12 @@
 
 ### Temel Riskler
 1. **⚠️ KRİTİK:** Audio features ile popularity arasında ÇOK ZAYİF ilişki (korelasyon < 0.1)
-2. **Düşük Model Başarısı Beklentisi:** R² < 0.15 beklenmeli (mevcut features yetersiz)
+2. **Sınıf dengesizliği:** Yüksek popüler şarkılar ~%26 — recall için `class_weight` gerekli
 3. **External Features Gereksinimi:** Sanatçı ünü, playlist sayısı, yayın tarihi gibi harici veriler KRİTİK
 4. **Multicollinearity:** Energy, tempo, danceability değişkenlerinde yüksek VIF (>10)
 
 ### Model Hazırlık Durumu
-**Değerlendirme: HAZIR DEĞİL (KIRMIZI) - Audio features yetersiz**
+**Değerlendirme: ÖZELLİK HAZIR — Sınıflandırma ile Accuracy ~%85 (Random Forest, test seti)**
 
 Veri seti modellemeye yakındır ancak şu ön işleme adımları gereklidir:
 - ✅ Veri kalitesi mükemmel (eksik veri minimal)

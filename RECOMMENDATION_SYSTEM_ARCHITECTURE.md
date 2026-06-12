@@ -1,20 +1,23 @@
 # 🎵 INTELLIGENT MUSIC RECOMMENDATION SYSTEM - ARCHITECTURE
 
-**Project Evolution:** Spotify Popularity Prediction → Intelligent Recommendation System  
-**Date:** May 19, 2026  
-**Version:** 2.0 (Recommendation Engine)
+**Project Evolution:** Popularity Regression → **Binary Classification** → Recommendation System  
+**Date:** May 19, 2026 · **Güncelleme:** Haziran 2026  
+**Version:** 2.1 (Classification + Recommendation Engine)  
+**Kaynak model:** Random Forest Classifier — `models/best_classifier_rf.pkl`
 
 ---
 
 ## 📋 EXECUTIVE SUMMARY
 
-Transform the existing popularity prediction system into an **intelligent recommendation engine** that:
-- ✅ Predicts song popularity (existing)
-- 🆕 Explains WHY the prediction was made
-- 🆕 Recommends HOW to improve popularity
-- 🆕 Suggests similar successful songs
-- 🆕 Analyzes risk and uncertainty
-- 🆕 Simulates "what-if" scenarios interactively
+> **Güncel durum:** Ana model **ikili sınıflandırma**dır (Düşük 0–49 / Yüksek 50–100). Aşağıdaki mimari, sınıf tahmini + olasılık skoru üzerine kurulmalıdır. Eski regresyon (0–100 skor) referansları geçersizdir.
+
+Transform the classification system into an **intelligent recommendation engine** that:
+- ✅ Predicts popularity **class** (Düşük / Yüksek) + probability
+- 🆕 Explains WHY the model predicted this class
+- 🆕 Recommends HOW to improve toward Yüksek Popüler class
+- 🆕 Suggests similar successful (Yüksek) songs
+- 🆕 Analyzes uncertainty via `predict_proba`
+- 🆕 Simulates "what-if" feature changes interactively
 
 **Target:** University-level project, production-ready, HCI-compliant
 

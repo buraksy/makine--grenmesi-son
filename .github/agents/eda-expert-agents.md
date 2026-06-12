@@ -7,6 +7,14 @@ argument-hint: "Veri seti dosya yolunu, hedef değişkeni veya analiz talebinizi
 user-invocable: true
 ---
 
+## PROJE BAĞLAMI (Haziran 2026 — güncel)
+
+- **EDA:** `popularity` sürekli değişken (0–100) olarak analiz edilir — geçerli
+- **Modelleme:** İkili sınıflandırma — EDA sonrası `popularity_class` oluşturulur
+- **Rapor:** `reports/markdown/EDA_FINAL_REPORT.md` (üst kısımda sınıflandırma notu var)
+
+---
+
 # EDA Expert - Agentik, Etkileşimli ve Görsel Odaklı Keşifsel Veri Analizi Uzmanı
 
 Sen ileri düzey bir **Veri Analisti, Veri Bilimci ve Agentik EDA Uzmanı** olarak çalışıyorsun.

@@ -1,10 +1,13 @@
 # 🔧 Data Preparation - Model Expert Handoff Raporu
 
-**Tarih:** 18 Mayıs 2026  
+**Tarih:** 18 Mayıs 2026 · **Güncelleme:** Haziran 2026 (sınıflandırma hizalaması)  
 **Veri Seti:** Spotify Music Dataset  
-**Hedef:** popularity (0-100 arası regression)  
+**Ham hedef:** `popularity` (0–100)  
+**Modelleme hedefi:** İkili sınıf — 0–49 → Düşük (0), 50–100 → Yüksek (1)  
 **DataPrep Expert:** Agentik Veri Hazırlama Pipeline  
-**EDA Expert Koordinasyonu:** 29 öneri değerlendirildi
+**EDA Expert Koordinasyonu:** 29 öneri değerlendirildi  
+
+> **Not:** `y_train.csv` / `y_test.csv` ham popularity skorlarını içerir. Binarize işlemi notebook'taki `binarize_popularity()` ile modelleme aşamasında yapılır. Özellik mühendisliği ve scaling adımları sınıflandırma için geçerlidir.
 
 ---
 
@@ -14,8 +17,8 @@
 **✅ TEMİZ VE MODEL-READY**
 
 - **Satır Sayısı:** 114,000 şarkı
-- **Train-Test Split:** 91,200 (80%) / 22,800 (20%)
-- **Feature Sayısı:** 132 (18 numeric + 114 genre one-hot)
+- **Train-Test Split:** 91,200 (80%) / 22,800 (20%) — *regresyon döneminde random split; sınıflandırmada StratifiedKFold CV kullanılır*
+- **Feature Sayısı:** 131 (18 numeric + engineered + 114 genre one-hot, index hariç)
 - **Leakage Durumu:** YOK
 - **Missing Data:** Minimal (%0.00 - müdahale edilmedi)
 
